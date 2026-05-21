@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ZeroAI STEM Suite — 5 apps, 1 platform</title>
+<meta name="description" content="Browser-based STEM apps for Grades 1–12. Circuits, block coding, Arduino simulation, Python. Runs entirely in the browser — no install, no servers.">
+<meta name="theme-color" content="#0d1117">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #0d1117; color: #e6edf3; font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; }
+.wrap { max-width: 1040px; margin: 0 auto; padding: 56px 24px 80px; }
+header { margin-bottom: 40px; }
+.brand { display: flex; align-items: baseline; gap: 10px; margin-bottom: 14px; }
+.brand-zero { color: #58a6ff; font-weight: 700; }
+.brand-ai { color: #e6edf3; font-weight: 700; }
+.brand-suite { color: #8b949e; font-weight: 500; font-size: 14px; letter-spacing: 0.5px; text-transform: uppercase; margin-left: 4px; }
+h1 { font-size: clamp(28px, 4vw, 40px); font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 10px; }
+h1 em { font-style: normal; color: #58a6ff; }
+.tag { color: #8b949e; font-size: 15px; max-width: 540px; }
+.grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 32px; }
+@media (min-width: 640px) { .grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 960px) { .grid { grid-template-columns: 1fr 1fr 1fr; } }
+.card { display: flex; flex-direction: column; gap: 8px; padding: 22px 22px 20px; background: #161b22; border: 1px solid #30363d; border-radius: 10px; transition: border-color 0.15s, transform 0.15s; }
+.card:hover { border-color: #58a6ff; transform: translateY(-1px); }
+.card:focus-visible { outline: 2px solid #58a6ff; outline-offset: 2px; }
+.card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 2px; }
+.card-emoji { font-size: 22px; line-height: 1; }
+.card-name { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
+.card-grades { font-size: 12px; color: #58a6ff; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; }
+.card-desc { color: #8b949e; font-size: 14px; min-height: 42px; }
+.card-launch { margin-top: 10px; color: #58a6ff; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 4px; }
+.card-launch::after { content: "→"; transition: transform 0.15s; }
+.card:hover .card-launch::after { transform: translateX(3px); }
+.kiosk { background: #0f1419; }
+.kiosk .card-grades { color: #d29922; }
+.kiosk .card-launch { color: #d29922; }
+footer { margin-top: 56px; padding-top: 24px; border-top: 1px solid #21262d; color: #6e7681; font-size: 13px; display: flex; flex-wrap: wrap; gap: 8px 18px; justify-content: space-between; }
+footer a:hover { color: #58a6ff; }
+.muted { color: #6e7681; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <span class="brand-zero">Zero</span><span class="brand-ai">AI</span><span class="brand-suite">STEM Suite</span>
+    </div>
+    <h1>Five apps. One platform.<br><em>Grades 1 through 12.</em></h1>
+    <p class="tag">Browser-based STEM education that runs on devices under 1 GB of RAM. No installs, no servers — open the page and start teaching.</p>
+  </header>
+
+  <main class="grid" role="list">
+    <a class="card" role="listitem" href="https://spark.zeroaitech.tech">
+      <div class="card-head"><span class="card-emoji">⚡</span><span class="card-name">ZeroSpark</span></div>
+      <div class="card-grades">Grades 1–4</div>
+      <div class="card-desc">Visual circuit builder. Drag-and-drop batteries, bulbs and switches to make circuits light up.</div>
+      <div class="card-launch">Launch ZeroSpark</div>
+    </a>
+
+    <a class="card" role="listitem" href="https://blocky.zeroaitech.tech">
+      <div class="card-head"><span class="card-emoji">🧩</span><span class="card-name">ZaiBlock</span></div>
+      <div class="card-grades">Grades 4–8</div>
+      <div class="card-desc">Block-based coding. Snap commands together to build games, animations and Arduino programs.</div>
+      <div class="card-launch">Launch ZaiBlock</div>
+    </a>
+
+    <a class="card" role="listitem" href="https://app.zeroaitech.tech">
+      <div class="card-head"><span class="card-emoji">🔌</span><span class="card-name">ZaiSim</span></div>
+      <div class="card-grades">Grades 5–9</div>
+      <div class="card-desc">Arduino and ESP32 simulator with real C++. Wire up components, write firmware, see it run.</div>
+      <div class="card-launch">Launch ZaiSim</div>
+    </a>
+
+    <a class="card" role="listitem" href="https://zaipy.zeroaitech.tech">
+      <div class="card-head"><span class="card-emoji">🐍</span><span class="card-name">ZaiPy</span></div>
+      <div class="card-grades">Grades 7–12</div>
+      <div class="card-desc">Full Python IDE in the browser. Turtle graphics, matplotlib, pandas — runs entirely offline.</div>
+      <div class="card-launch">Launch ZaiPy</div>
+    </a>
+
+    <a class="card kiosk" role="listitem" href="https://lab.zeroaitech.tech">
+      <div class="card-head"><span class="card-emoji">🔬</span><span class="card-name">Lab Kiosk</span></div>
+      <div class="card-grades">For teachers</div>
+      <div class="card-desc">Classroom control panel. Manage rosters, lock screens, monitor live code across the lab.</div>
+      <div class="card-launch">Open Lab Kiosk</div>
+    </a>
+  </main>
+
+  <footer>
+    <span>© ZeroAI Technologies Inc. · Zambian-founded · India operations</span>
+    <span><a href="https://zeroaitech.tech">zeroaitech.tech</a> · <a href="mailto:lottiemukuka@zeroaitech.tech">contact</a></span>
+  </footer>
+</div>
+</body>
+</html>
