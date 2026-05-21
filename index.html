@@ -3,96 +3,658 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ZeroAI STEM Suite — 5 apps, 1 platform</title>
-<meta name="description" content="Browser-based STEM apps for Grades 1–12. Circuits, block coding, Arduino simulation, Python. Runs entirely in the browser — no install, no servers.">
+<title>ZeroAI STEM Suite — K-12 STEM that runs on any device, anywhere</title>
+<meta name="description" content="Five browser-based STEM apps for Grades 1–12. Runs on 1GB RAM devices, works offline, no installs. Trusted by 40 schools, 10,000+ students. Pilot starts from $500.">
 <meta name="theme-color" content="#0d1117">
+<meta property="og:title" content="ZeroAI STEM Suite — K-12 STEM that runs anywhere">
+<meta property="og:description" content="Five apps. Grades 1–12. Runs offline on 1GB RAM devices. Pilot from $500 / school.">
+<meta property="og:url" content="https://stem.zeroaitech.tech">
+<meta property="og:type" content="website">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
+:root {
+  --bg: #0a0c10;
+  --bg-card: #11141a;
+  --bg-elev: #161b22;
+  --border: #21262d;
+  --border-strong: #30363d;
+  --text: #e6edf3;
+  --muted: #8b949e;
+  --dim: #6e7681;
+  --accent: #58a6ff;
+  --accent-dim: rgba(88,166,255,0.12);
+  --gold: #d29922;
+  --green: #3fb950;
+  --purple: #a371f7;
+  --pink: #f778ba;
+  --gradient: linear-gradient(135deg, #58a6ff 0%, #a371f7 100%);
+}
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { background: #0d1117; color: #e6edf3; font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
 a { color: inherit; text-decoration: none; }
-.wrap { max-width: 1040px; margin: 0 auto; padding: 56px 24px 80px; }
-header { margin-bottom: 40px; }
-.brand { display: flex; align-items: baseline; gap: 10px; margin-bottom: 14px; }
-.brand-zero { color: #58a6ff; font-weight: 700; }
-.brand-ai { color: #e6edf3; font-weight: 700; }
-.brand-suite { color: #8b949e; font-weight: 500; font-size: 14px; letter-spacing: 0.5px; text-transform: uppercase; margin-left: 4px; }
-h1 { font-size: clamp(28px, 4vw, 40px); font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 10px; }
-h1 em { font-style: normal; color: #58a6ff; }
-.tag { color: #8b949e; font-size: 15px; max-width: 540px; }
-.grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 32px; }
-@media (min-width: 640px) { .grid { grid-template-columns: 1fr 1fr; } }
-@media (min-width: 960px) { .grid { grid-template-columns: 1fr 1fr 1fr; } }
-.card { display: flex; flex-direction: column; gap: 8px; padding: 22px 22px 20px; background: #161b22; border: 1px solid #30363d; border-radius: 10px; transition: border-color 0.15s, transform 0.15s; }
-.card:hover { border-color: #58a6ff; transform: translateY(-1px); }
-.card:focus-visible { outline: 2px solid #58a6ff; outline-offset: 2px; }
-.card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 2px; }
-.card-emoji { font-size: 22px; line-height: 1; }
-.card-name { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
-.card-grades { font-size: 12px; color: #58a6ff; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; }
-.card-desc { color: #8b949e; font-size: 14px; min-height: 42px; }
-.card-launch { margin-top: 10px; color: #58a6ff; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 4px; }
-.card-launch::after { content: "→"; transition: transform 0.15s; }
-.card:hover .card-launch::after { transform: translateX(3px); }
-.kiosk { background: #0f1419; }
-.kiosk .card-grades { color: #d29922; }
-.kiosk .card-launch { color: #d29922; }
-footer { margin-top: 56px; padding-top: 24px; border-top: 1px solid #21262d; color: #6e7681; font-size: 13px; display: flex; flex-wrap: wrap; gap: 8px 18px; justify-content: space-between; }
-footer a:hover { color: #58a6ff; }
-.muted { color: #6e7681; }
+img, svg { display: block; max-width: 100%; }
+h1, h2, h3, h4 { font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; }
+section { padding: 80px 24px; }
+.wrap { max-width: 1140px; margin: 0 auto; }
+.eyebrow { color: var(--accent); font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 14px; }
+
+/* ─── Nav ──────────────────────────────────────────── */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(10,12,16,0.85);
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner { max-width: 1140px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; gap: 24px; }
+.brand { display: flex; align-items: baseline; gap: 8px; font-weight: 800; font-size: 17px; letter-spacing: -0.01em; }
+.brand .b1 { color: var(--accent); }
+.brand .b2 { color: var(--text); }
+.brand .b3 { color: var(--muted); font-weight: 500; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; margin-left: 2px; }
+.nav-links { margin-left: auto; display: none; gap: 28px; }
+.nav-links a { color: var(--muted); font-size: 14px; font-weight: 500; transition: color 0.15s; }
+.nav-links a:hover { color: var(--text); }
+.nav-cta { padding: 8px 14px; border-radius: 8px; background: var(--accent); color: #0a0c10; font-weight: 600; font-size: 14px; transition: transform 0.15s; margin-left: auto; }
+.nav-cta:hover { transform: translateY(-1px); }
+@media (min-width: 768px) {
+  .nav-links { display: flex; }
+  .nav-cta { margin-left: 0; }
+}
+
+/* ─── Hero ─────────────────────────────────────────── */
+.hero { padding: 80px 24px 64px; position: relative; overflow: hidden; }
+.hero::before {
+  content: ''; position: absolute; inset: -50% -10% auto auto; width: 800px; height: 800px;
+  background: radial-gradient(circle at center, rgba(88,166,255,0.10), transparent 60%);
+  pointer-events: none;
+}
+.hero-grid { display: grid; gap: 48px; grid-template-columns: 1fr; align-items: center; position: relative; }
+@media (min-width: 960px) { .hero-grid { grid-template-columns: 1.05fr 1fr; gap: 64px; } }
+.hero-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 12px; background: var(--accent-dim); border: 1px solid rgba(88,166,255,0.25);
+  border-radius: 999px; font-size: 12px; font-weight: 600; color: var(--accent);
+  margin-bottom: 18px;
+}
+.hero-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.hero h1 { font-size: clamp(36px, 6vw, 58px); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 18px; }
+.hero h1 em { font-style: normal; background: var(--gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+.hero-sub { color: var(--muted); font-size: 18px; line-height: 1.55; max-width: 540px; margin-bottom: 32px; }
+.hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 28px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 9px; font-weight: 600; font-size: 15px; transition: transform 0.15s, background 0.15s, border-color 0.15s; }
+.btn-primary { background: var(--accent); color: #0a0c10; }
+.btn-primary:hover { transform: translateY(-1px); background: #79b8ff; }
+.btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border-strong); }
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+.hero-meta { display: flex; gap: 6px 18px; flex-wrap: wrap; color: var(--dim); font-size: 13px; }
+.hero-meta span { display: inline-flex; align-items: center; gap: 6px; }
+.hero-meta span::before { content: '✓'; color: var(--green); font-weight: 700; }
+
+/* ─── Hero visual — abstract app stack ─────────────── */
+.hero-visual { position: relative; height: 420px; }
+.hv-card {
+  position: absolute; border-radius: 14px; background: var(--bg-elev);
+  border: 1px solid var(--border-strong); padding: 16px;
+  box-shadow: 0 30px 60px -20px rgba(0,0,0,0.5);
+}
+.hv-card-1 { top: 0; left: 0; width: 64%; height: 200px; transform: rotate(-2deg); }
+.hv-card-2 { top: 60px; right: 0; width: 56%; height: 180px; transform: rotate(3deg); background: linear-gradient(135deg, #1a1f2e, #11141a); }
+.hv-card-3 { bottom: 0; left: 12%; width: 70%; height: 220px; transform: rotate(-1deg); }
+.hv-bar { display: flex; gap: 6px; margin-bottom: 14px; }
+.hv-bar i { width: 9px; height: 9px; border-radius: 50%; background: var(--border-strong); display: block; }
+.hv-bar i:nth-child(1) { background: #f85149; }
+.hv-bar i:nth-child(2) { background: #d29922; }
+.hv-bar i:nth-child(3) { background: #3fb950; }
+.hv-line { height: 8px; border-radius: 4px; background: var(--border); margin-bottom: 8px; }
+.hv-line.short { width: 60%; }
+.hv-line.mid { width: 80%; }
+.hv-line.accent { background: var(--accent-dim); }
+.hv-line.green { background: rgba(63,185,80,0.20); }
+.hv-line.purple { background: rgba(163,113,247,0.20); }
+
+/* ─── Trust strip ──────────────────────────────────── */
+.trust { padding: 32px 24px 24px; border-bottom: 1px solid var(--border); }
+.trust-label { color: var(--dim); font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; text-align: center; margin-bottom: 18px; }
+.trust-logos { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 36px; margin-bottom: 24px; }
+.trust-logos a { color: var(--muted); font-size: 14px; font-weight: 600; transition: color 0.15s; padding: 4px 0; border-bottom: 1px solid transparent; }
+.trust-logos a:hover { color: var(--text); border-bottom-color: var(--accent); }
+.trust-stats { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 36px; padding-top: 18px; border-top: 1px solid var(--border); }
+.trust-stat { display: flex; flex-direction: column; align-items: center; }
+.trust-stat-num { font-size: 22px; font-weight: 800; color: var(--text); letter-spacing: -0.02em; }
+.trust-stat-label { font-size: 11px; color: var(--dim); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+
+/* ─── Section heading ──────────────────────────────── */
+.section-head { text-align: center; max-width: 720px; margin: 0 auto 56px; }
+.section-head h2 { font-size: clamp(28px, 4vw, 38px); margin-bottom: 14px; }
+.section-head p { color: var(--muted); font-size: 17px; }
+
+/* ─── Apps grid ────────────────────────────────────── */
+.apps-grid { display: grid; gap: 16px; grid-template-columns: 1fr; }
+@media (min-width: 640px) { .apps-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1024px) { .apps-grid { grid-template-columns: 1fr 1fr 1fr; } }
+.app-card {
+  position: relative; display: flex; flex-direction: column; padding: 28px;
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px;
+  transition: border-color 0.18s, transform 0.18s;
+}
+.app-card:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+.app-card-head { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+.app-icon { width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; font-size: 22px; flex-shrink: 0; }
+.app-card .grades { color: var(--accent); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 14px; }
+.app-card.kiosk .grades { color: var(--gold); }
+.app-card h3 { font-size: 22px; font-weight: 700; }
+.app-card .tagline { color: var(--text); font-size: 15px; font-weight: 500; margin-bottom: 12px; }
+.app-card .desc { color: var(--muted); font-size: 14px; flex: 1; margin-bottom: 18px; }
+.app-card .features { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+.app-card .features span { font-size: 11px; padding: 3px 9px; background: var(--bg-elev); border: 1px solid var(--border); border-radius: 999px; color: var(--muted); font-weight: 500; }
+.app-launch { display: inline-flex; align-items: center; gap: 6px; color: var(--accent); font-size: 14px; font-weight: 600; }
+.app-card.kiosk .app-launch { color: var(--gold); }
+.app-launch::after { content: '→'; transition: transform 0.15s; }
+.app-card:hover .app-launch::after { transform: translateX(4px); }
+.icon-spark { background: linear-gradient(135deg, #fbbf24, #f59e0b); }
+.icon-block { background: linear-gradient(135deg, #818cf8, #a78bfa); }
+.icon-sim { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+.icon-py { background: linear-gradient(135deg, #10b981, #059669); }
+.icon-kiosk { background: linear-gradient(135deg, #d97706, #b45309); }
+
+/* ─── Features ─────────────────────────────────────── */
+.features-section { background: linear-gradient(180deg, transparent, rgba(88,166,255,0.03), transparent); }
+.features-grid { display: grid; gap: 20px; grid-template-columns: 1fr; }
+@media (min-width: 640px) { .features-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1024px) { .features-grid { grid-template-columns: 1fr 1fr 1fr 1fr; } }
+.feature { padding: 24px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; }
+.feature-icon { width: 36px; height: 36px; border-radius: 9px; background: var(--accent-dim); display: grid; place-items: center; margin-bottom: 16px; color: var(--accent); }
+.feature h3 { font-size: 16px; margin-bottom: 6px; }
+.feature p { color: var(--muted); font-size: 14px; }
+
+/* ─── Pricing ──────────────────────────────────────── */
+.pricing-grid { display: grid; gap: 16px; grid-template-columns: 1fr; max-width: 1000px; margin: 0 auto; }
+@media (min-width: 768px) { .pricing-grid { grid-template-columns: 1fr 1fr 1fr; } }
+.price-card { position: relative; padding: 32px 28px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; display: flex; flex-direction: column; }
+.price-card.featured { border-color: var(--accent); background: linear-gradient(180deg, rgba(88,166,255,0.05), var(--bg-card)); }
+.price-card .badge { position: absolute; top: -12px; left: 28px; padding: 4px 12px; background: var(--accent); color: #0a0c10; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; border-radius: 999px; }
+.price-tier { color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
+.price-card h3 { font-size: 26px; margin-bottom: 4px; }
+.price-card .subtitle { color: var(--muted); font-size: 14px; margin-bottom: 22px; }
+.price-num { display: flex; align-items: baseline; gap: 6px; margin-bottom: 6px; }
+.price-num strong { font-size: 38px; font-weight: 800; letter-spacing: -0.03em; }
+.price-num span { color: var(--muted); font-size: 14px; }
+.price-note { color: var(--dim); font-size: 12px; margin-bottom: 22px; }
+.price-features { list-style: none; flex: 1; margin-bottom: 24px; }
+.price-features li { padding: 6px 0; padding-left: 22px; position: relative; color: var(--muted); font-size: 14px; }
+.price-features li::before { content: ''; position: absolute; left: 0; top: 11px; width: 12px; height: 6px; border-left: 2px solid var(--green); border-bottom: 2px solid var(--green); transform: rotate(-45deg); }
+.price-card .btn { width: 100%; justify-content: center; }
+.price-regions { margin-top: 32px; padding: 18px 22px; background: var(--bg-elev); border: 1px solid var(--border); border-radius: 10px; max-width: 1000px; margin-inline: auto; }
+.price-regions-head { font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 10px; }
+.price-regions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+.price-region { font-size: 13px; }
+.price-region b { color: var(--text); }
+.price-region span { color: var(--muted); }
+
+/* ─── Press / testimonial ──────────────────────────── */
+.press { background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.press-grid { display: grid; gap: 16px; grid-template-columns: 1fr; }
+@media (min-width: 768px) { .press-grid { grid-template-columns: 1fr 1fr; } }
+.press-card { padding: 28px; background: var(--bg-elev); border: 1px solid var(--border); border-radius: 12px; }
+.press-card blockquote { color: var(--text); font-size: 16px; line-height: 1.55; margin-bottom: 16px; }
+.press-card cite { color: var(--muted); font-size: 13px; font-style: normal; font-weight: 600; }
+.press-card cite a { color: var(--accent); }
+
+/* ─── About ────────────────────────────────────────── */
+.about-grid { display: grid; gap: 28px; grid-template-columns: 1fr; align-items: center; }
+@media (min-width: 768px) { .about-grid { grid-template-columns: 1fr 1fr; } }
+.about p { color: var(--muted); font-size: 16px; line-height: 1.7; margin-bottom: 18px; }
+.about-stamps { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.stamp { padding: 6px 12px; background: var(--bg-elev); border: 1px solid var(--border); border-radius: 999px; font-size: 12px; font-weight: 600; color: var(--muted); }
+
+/* ─── Final CTA ────────────────────────────────────── */
+.cta-band {
+  padding: 64px 24px; background: linear-gradient(135deg, rgba(88,166,255,0.08), rgba(163,113,247,0.06));
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); text-align: center;
+}
+.cta-band h2 { font-size: clamp(28px, 4vw, 38px); margin-bottom: 14px; }
+.cta-band p { color: var(--muted); font-size: 17px; margin-bottom: 28px; }
+.cta-band .btn { font-size: 16px; padding: 14px 24px; }
+.cta-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+
+/* ─── Footer ───────────────────────────────────────── */
+footer { padding: 48px 24px 36px; }
+.foot { display: grid; gap: 32px; grid-template-columns: 1fr; }
+@media (min-width: 768px) { .foot { grid-template-columns: 1.4fr 1fr 1fr 1fr; } }
+.foot h4 { font-size: 12px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 14px; font-weight: 700; }
+.foot ul { list-style: none; }
+.foot ul li { margin-bottom: 8px; }
+.foot ul a { color: var(--muted); font-size: 14px; transition: color 0.15s; }
+.foot ul a:hover { color: var(--accent); }
+.foot p { color: var(--muted); font-size: 14px; max-width: 320px; }
+.foot-bottom { margin-top: 36px; padding-top: 24px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; color: var(--dim); font-size: 12px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  html { scroll-behavior: auto; }
+}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <div class="brand">
-      <span class="brand-zero">Zero</span><span class="brand-ai">AI</span><span class="brand-suite">STEM Suite</span>
+
+<!-- ───── NAV ───── -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="/">
+      <span class="b1">Zero</span><span class="b2">AI</span><span class="b3">STEM Suite</span>
+    </a>
+    <div class="nav-links">
+      <a href="#apps">Apps</a>
+      <a href="#why">Why us</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#about">About</a>
     </div>
-    <h1>Five apps. One platform.<br><em>Grades 1 through 12.</em></h1>
-    <p class="tag">Browser-based STEM education that runs on devices under 1 GB of RAM. No installs, no servers — open the page and start teaching.</p>
-  </header>
+    <a class="nav-cta" href="#contact">Start a Pilot</a>
+  </div>
+</nav>
 
-  <main class="grid" role="list">
-    <a class="card" role="listitem" href="https://spark.zeroaitech.tech">
-      <div class="card-head"><span class="card-emoji">⚡</span><span class="card-name">ZeroSpark</span></div>
-      <div class="card-grades">Grades 1–4</div>
-      <div class="card-desc">Visual circuit builder. Drag-and-drop batteries, bulbs and switches to make circuits light up.</div>
-      <div class="card-launch">Launch ZeroSpark</div>
-    </a>
+<!-- ───── HERO ───── -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="hero-pill"><span class="dot"></span>Live in 40 schools · 10,000+ students</div>
+      <h1>K-12 STEM that runs <em>anywhere</em>.</h1>
+      <p class="hero-sub">Five browser-based apps for Grades 1 through 12. Circuits, block coding, Arduino simulation and Python. No installs, no servers, no Wi-Fi required — runs on devices with as little as 1 GB of RAM.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#contact">Start a Pilot →</a>
+        <a class="btn btn-ghost" href="#apps">Explore the apps</a>
+      </div>
+      <div class="hero-meta">
+        <span>Works offline</span>
+        <span>Runs on 1 GB RAM</span>
+        <span>No login required to try</span>
+        <span>IBM Partner Plus</span>
+      </div>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+      <div class="hv-card hv-card-1">
+        <div class="hv-bar"><i></i><i></i><i></i></div>
+        <div class="hv-line accent" style="width:35%"></div>
+        <div class="hv-line short"></div>
+        <div class="hv-line mid"></div>
+        <div class="hv-line green" style="width:50%"></div>
+        <div class="hv-line short"></div>
+        <div class="hv-line" style="width:70%"></div>
+      </div>
+      <div class="hv-card hv-card-2">
+        <div class="hv-bar"><i></i><i></i><i></i></div>
+        <div class="hv-line purple" style="width:55%"></div>
+        <div class="hv-line short"></div>
+        <div class="hv-line mid"></div>
+        <div class="hv-line accent" style="width:40%"></div>
+      </div>
+      <div class="hv-card hv-card-3">
+        <div class="hv-bar"><i></i><i></i><i></i></div>
+        <div class="hv-line green" style="width:30%"></div>
+        <div class="hv-line"></div>
+        <div class="hv-line mid"></div>
+        <div class="hv-line short"></div>
+        <div class="hv-line accent" style="width:65%"></div>
+        <div class="hv-line"></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <a class="card" role="listitem" href="https://blocky.zeroaitech.tech">
-      <div class="card-head"><span class="card-emoji">🧩</span><span class="card-name">ZaiBlock</span></div>
-      <div class="card-grades">Grades 4–8</div>
-      <div class="card-desc">Block-based coding. Snap commands together to build games, animations and Arduino programs.</div>
-      <div class="card-launch">Launch ZaiBlock</div>
-    </a>
+<!-- ───── TRUST STRIP ───── -->
+<section class="trust">
+  <div class="wrap">
+    <div class="trust-label">Featured in</div>
+    <div class="trust-logos">
+      <a href="https://disruptafrica.com/2026/04/28/how-zambias-zeroai-technologies-is-helping-schools-teach-ai-robotics/" target="_blank" rel="noopener">Disrupt Africa</a>
+      <a href="https://www.wearetech.africa/en/fils-uk/solutions/zambian-startup-zeroai-expands-stem-education-in-low-resource-schools" target="_blank" rel="noopener">We Are Tech Africa</a>
+      <a href="https://www.techwithafrica.com/2026/05/06/zambias-zeroai-brings-ai-and-robotics-lessons-to-schools-without-internet-or-power/" target="_blank" rel="noopener">Tech With Africa</a>
+      <a href="https://southernafricantimes.com/how-zambias-zeroai-expands-access-to-ai-education-in-schools/" target="_blank" rel="noopener">Southern African Times</a>
+    </div>
+    <div class="trust-stats">
+      <div class="trust-stat"><div class="trust-stat-num">10,000+</div><div class="trust-stat-label">Students</div></div>
+      <div class="trust-stat"><div class="trust-stat-num">40</div><div class="trust-stat-label">Schools</div></div>
+      <div class="trust-stat"><div class="trust-stat-num">12 yrs</div><div class="trust-stat-label">In operation</div></div>
+      <div class="trust-stat"><div class="trust-stat-num">5</div><div class="trust-stat-label">Apps · Grades 1–12</div></div>
+    </div>
+  </div>
+</section>
 
-    <a class="card" role="listitem" href="https://app.zeroaitech.tech">
-      <div class="card-head"><span class="card-emoji">🔌</span><span class="card-name">ZaiSim</span></div>
-      <div class="card-grades">Grades 5–9</div>
-      <div class="card-desc">Arduino and ESP32 simulator with real C++. Wire up components, write firmware, see it run.</div>
-      <div class="card-launch">Launch ZaiSim</div>
-    </a>
+<!-- ───── APPS GRID ───── -->
+<section id="apps">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">The Suite</div>
+      <h2>One platform. Five apps. Twelve grade levels.</h2>
+      <p>Designed to build the same student up from physical circuits in Grade 1 to writing real Python in Grade 12.</p>
+    </div>
 
-    <a class="card" role="listitem" href="https://zaipy.zeroaitech.tech">
-      <div class="card-head"><span class="card-emoji">🐍</span><span class="card-name">ZaiPy</span></div>
-      <div class="card-grades">Grades 7–12</div>
-      <div class="card-desc">Full Python IDE in the browser. Turtle graphics, matplotlib, pandas — runs entirely offline.</div>
-      <div class="card-launch">Launch ZaiPy</div>
-    </a>
+    <div class="apps-grid">
 
-    <a class="card kiosk" role="listitem" href="https://lab.zeroaitech.tech">
-      <div class="card-head"><span class="card-emoji">🔬</span><span class="card-name">Lab Kiosk</span></div>
-      <div class="card-grades">For teachers</div>
-      <div class="card-desc">Classroom control panel. Manage rosters, lock screens, monitor live code across the lab.</div>
-      <div class="card-launch">Open Lab Kiosk</div>
-    </a>
-  </main>
+      <a class="app-card" href="https://spark.zeroaitech.tech">
+        <div class="app-card-head">
+          <div class="app-icon icon-spark">⚡</div>
+          <div><h3>ZeroSpark</h3></div>
+        </div>
+        <div class="grades">Grades 1 – 4 · Foundation</div>
+        <div class="tagline">Visual circuit builder.</div>
+        <div class="desc">Drag-and-drop batteries, bulbs and switches. Watch circuits light up the moment they're closed — physics first, screens second.</div>
+        <div class="features">
+          <span>No reading required</span>
+          <span>Drag & drop</span>
+          <span>Touch friendly</span>
+        </div>
+        <span class="app-launch">Launch ZeroSpark</span>
+      </a>
 
-  <footer>
-    <span>© ZeroAI Technologies Inc. · Zambian-founded · India operations</span>
-    <span><a href="https://zeroaitech.tech">zeroaitech.tech</a> · <a href="mailto:lottiemukuka@zeroaitech.tech">contact</a></span>
-  </footer>
-</div>
+      <a class="app-card" href="https://blocky.zeroaitech.tech">
+        <div class="app-card-head">
+          <div class="app-icon icon-block">🧩</div>
+          <div><h3>ZaiBlock</h3></div>
+        </div>
+        <div class="grades">Grades 4 – 8 · Bridge</div>
+        <div class="tagline">Block-based coding.</div>
+        <div class="desc">Snap commands together to build games, animations and stories. The on-ramp from blocks to typed code.</div>
+        <div class="features">
+          <span>Blockly-based</span>
+          <span>Sprites & sound</span>
+          <span>Exports to JS</span>
+        </div>
+        <span class="app-launch">Launch ZaiBlock</span>
+      </a>
+
+      <a class="app-card" href="https://app.zeroaitech.tech">
+        <div class="app-card-head">
+          <div class="app-icon icon-sim">🔌</div>
+          <div><h3>ZaiSim</h3></div>
+        </div>
+        <div class="grades">Grades 5 – 9 · Hardware</div>
+        <div class="tagline">Arduino & ESP32 simulator.</div>
+        <div class="desc">Wire up real components, write real C++, see real behaviour — without ever buying a kit. LEDs, sensors, motors, servos, displays.</div>
+        <div class="features">
+          <span>Real C++</span>
+          <span>Wokwi elements</span>
+          <span>Serial monitor</span>
+        </div>
+        <span class="app-launch">Launch ZaiSim</span>
+      </a>
+
+      <a class="app-card" href="https://zaipy.zeroaitech.tech">
+        <div class="app-card-head">
+          <div class="app-icon icon-py">🐍</div>
+          <div><h3>ZaiPy</h3></div>
+        </div>
+        <div class="grades">Grades 7 – 12 · Senior</div>
+        <div class="tagline">Full Python IDE in the browser.</div>
+        <div class="desc">CPython 3.11 via Pyodide. Turtle graphics, matplotlib, pandas, numpy — runs entirely offline. Real data-science lessons, no setup.</div>
+        <div class="features">
+          <span>Python 3.11</span>
+          <span>Data science libs</span>
+          <span>Plots & turtle</span>
+        </div>
+        <span class="app-launch">Launch ZaiPy</span>
+      </a>
+
+      <a class="app-card kiosk" href="https://lab.zeroaitech.tech">
+        <div class="app-card-head">
+          <div class="app-icon icon-kiosk">🔬</div>
+          <div><h3>Lab Kiosk</h3></div>
+        </div>
+        <div class="grades">For teachers</div>
+        <div class="tagline">Classroom control panel.</div>
+        <div class="desc">Manage rosters, lock student screens during exams, monitor live code across the lab. Built for teachers who run 30-seat labs.</div>
+        <div class="features">
+          <span>Roster login</span>
+          <span>Lock-all</span>
+          <span>Live code view</span>
+        </div>
+        <span class="app-launch">Open Lab Kiosk</span>
+      </a>
+
+      <div class="app-card" style="background: transparent; border-style: dashed;">
+        <div class="grades" style="color: var(--muted);">Coming Q3 2026</div>
+        <h3 style="color: var(--muted); margin-bottom: 12px;">AIoT Lab</h3>
+        <div class="desc">Connect ZaiSim to real hardware over USB or Wi-Fi. Bridge the simulator and the workbench for full hands-on lessons.</div>
+        <span style="color: var(--dim); font-size: 13px; font-weight: 600;">In development</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ───── FEATURES / WHY ───── -->
+<section id="why" class="features-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Why schools choose us</div>
+      <h2>Built for real classrooms, not fancy demos.</h2>
+      <p>Every design choice is shaped by the schools we serve: shaky Wi-Fi, old Chromebooks, mixed Android tablets, occasional power cuts.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature">
+        <div class="feature-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M2 12h20"/><circle cx="12" cy="12" r="9"/></svg>
+        </div>
+        <h3>Works offline</h3>
+        <p>Service-worker cached. After first load, every app keeps running through power cuts and Wi-Fi outages.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <h3>Under 1 GB RAM</h3>
+        <p>Tested on Raspberry Pi Zero, 6-year-old Chromebooks and ₹6,000 Android tablets. If it boots a browser, it runs the suite.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h3>No installs</h3>
+        <p>Pure web. IT teams don't need to deploy anything. Students open the URL and start coding.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+        </div>
+        <h3>One license, five apps</h3>
+        <p>Pay once at the school level. Every student, every grade, every app — no per-seat counting.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── PRICING ───── -->
+<section id="pricing">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Pricing</div>
+      <h2>Pilot first. Scale when it works.</h2>
+      <p>We come to your school, run a 2-hour workshop with your students and teachers, and you pay only if you want to keep going.</p>
+    </div>
+
+    <div class="pricing-grid">
+
+      <div class="price-card">
+        <div class="price-tier">Try</div>
+        <h3>Free Workshop</h3>
+        <div class="subtitle">2-hour demo at your school.</div>
+        <div class="price-num"><strong>₹0</strong><span>· no commitment</span></div>
+        <p class="price-note">For local schools in Ludhiana, Cebu, Davao and Lusaka.</p>
+        <ul class="price-features">
+          <li>2-hour live session with your students</li>
+          <li>All 5 apps demonstrated</li>
+          <li>Q&A with teachers</li>
+          <li>Founder personally delivers it</li>
+        </ul>
+        <a class="btn btn-ghost" href="#contact">Book a workshop</a>
+      </div>
+
+      <div class="price-card featured">
+        <div class="badge">Most popular</div>
+        <div class="price-tier">Pilot</div>
+        <h3>School Pilot</h3>
+        <div class="subtitle">1 month full access. No long-term lock-in.</div>
+        <div class="price-num"><strong>From $500</strong><span>/ school</span></div>
+        <p class="price-note">Adjusted for local currency. See regional pricing below.</p>
+        <ul class="price-features">
+          <li>All 5 apps for the entire school</li>
+          <li>Unlimited students, unlimited grades</li>
+          <li>Teacher onboarding session</li>
+          <li>Lab Kiosk + classroom controls</li>
+          <li>Direct line to the founder</li>
+        </ul>
+        <a class="btn btn-primary" href="#contact">Start the pilot</a>
+      </div>
+
+      <div class="price-card">
+        <div class="price-tier">Annual</div>
+        <h3>Annual License</h3>
+        <div class="subtitle">Full school year. Best per-student value.</div>
+        <div class="price-num"><strong>Talk to us</strong></div>
+        <p class="price-note">Discounts for early adopters and multi-school groups.</p>
+        <ul class="price-features">
+          <li>Everything in Pilot</li>
+          <li>Teacher training programme</li>
+          <li>Curriculum mapping</li>
+          <li>Quarterly check-ins</li>
+          <li>Custom branding option</li>
+        </ul>
+        <a class="btn btn-ghost" href="#contact">Get a quote</a>
+      </div>
+
+    </div>
+
+    <div class="price-regions">
+      <div class="price-regions-head">Regional Pilot pricing</div>
+      <div class="price-regions-grid">
+        <div class="price-region"><b>Philippines</b> <span>· ₱35,000</span></div>
+        <div class="price-region"><b>India</b> <span>· ₹50,000</span></div>
+        <div class="price-region"><b>UAE</b> <span>· AED 8,000</span></div>
+        <div class="price-region"><b>Switzerland</b> <span>· CHF 1,800</span></div>
+        <div class="price-region"><b>United Kingdom</b> <span>· £500</span></div>
+        <div class="price-region"><b>Other regions</b> <span>· Contact us</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── PRESS / SOCIAL PROOF ───── -->
+<section class="press">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">In the press</div>
+      <h2>What's being said.</h2>
+    </div>
+    <div class="press-grid">
+      <div class="press-card">
+        <blockquote>"How Zambia's ZeroAI Technologies is helping schools teach AI and robotics — bringing real STEM curricula to places that don't have reliable internet or constant power."</blockquote>
+        <cite><a href="https://disruptafrica.com/2026/04/28/how-zambias-zeroai-technologies-is-helping-schools-teach-ai-robotics/" target="_blank" rel="noopener">Disrupt Africa</a> · April 2026</cite>
+      </div>
+      <div class="press-card">
+        <blockquote>"Zambian startup ZeroAI expands STEM education in low-resource schools across Africa and Asia — a quiet engineering effort with real classroom outcomes."</blockquote>
+        <cite><a href="https://www.wearetech.africa/en/fils-uk/solutions/zambian-startup-zeroai-expands-stem-education-in-low-resource-schools" target="_blank" rel="noopener">We Are Tech Africa</a></cite>
+      </div>
+      <div class="press-card">
+        <blockquote>"ZeroAI brings AI and robotics lessons to schools without internet or power — designed for the realities of Sub-Saharan classrooms."</blockquote>
+        <cite><a href="https://www.techwithafrica.com/2026/05/06/zambias-zeroai-brings-ai-and-robotics-lessons-to-schools-without-internet-or-power/" target="_blank" rel="noopener">Tech With Africa</a> · May 2026</cite>
+      </div>
+      <div class="press-card">
+        <blockquote>"On Drishti Public School's 2-year contract: we needed STEM that actually fits our classrooms, not Silicon Valley demos. ZeroAI built around our reality."</blockquote>
+        <cite>Drishti Public School · Ludhiana, India · Active contract since Feb 2026</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── ABOUT ───── -->
+<section id="about">
+  <div class="wrap about">
+    <div class="about-grid">
+      <div>
+        <div class="eyebrow">About us</div>
+        <h2 style="font-size: clamp(28px, 4vw, 36px); margin-bottom: 18px;">Zambian-founded. Built where the constraints are real.</h2>
+      </div>
+      <div>
+        <p>ZeroAI Technologies was founded in 2014. Twelve years of building software, robotics and AI-automation systems — for two years now focused intensively on K-12 STEM, after our founder returned full-time from his earlier work in school robotics programmes.</p>
+        <p>We're PACRA-registered in Zambia and MSME-registered in India. We build the apps from Punjab, deliver pilots in Lusaka, Davao, Cebu, Ludhiana and the Gulf, and ship the work that fits the schools we actually visit.</p>
+        <div class="about-stamps">
+          <span class="stamp">Founded 2014</span>
+          <span class="stamp">PACRA · Zambia</span>
+          <span class="stamp">MSME · India</span>
+          <span class="stamp">IBM Partner Plus</span>
+          <span class="stamp">Apple Tutors (PH delivery)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── FINAL CTA ───── -->
+<section id="contact" class="cta-band">
+  <div class="wrap">
+    <h2>Run a pilot at your school.</h2>
+    <p>Tell us where you are. We'll come do the workshop, walk your teachers through it, and quote your local pricing.</p>
+    <div class="cta-actions">
+      <a class="btn btn-primary" href="mailto:lottiemukuka@zeroaitech.tech?subject=Pilot%20enquiry%20%E2%80%94%20STEM%20Suite&body=Hi%20Lottie%2C%0A%0ASchool%20name%3A%0ALocation%2Fcity%3A%0AApproximate%20student%20count%3A%0AGrade%20levels%20interested%3A%0A%0AWe%27d%20like%20to%20schedule%20a%20pilot%20workshop.%0A">📧 Email Lottie directly</a>
+      <a class="btn btn-ghost" href="https://wa.me/917717347050?text=Hi%20Lottie%2C%20we%27d%20like%20to%20book%20a%20ZeroAI%20STEM%20pilot%20workshop%20for%20our%20school.">💬 WhatsApp · +91 77173 47050</a>
+    </div>
+  </div>
+</section>
+
+<!-- ───── FOOTER ───── -->
+<footer>
+  <div class="wrap foot">
+    <div>
+      <a class="brand" href="/" style="margin-bottom: 14px; display: inline-flex;"><span class="b1">Zero</span><span class="b2">AI</span><span class="b3">STEM Suite</span></a>
+      <p>K-12 STEM that runs on any device, anywhere. Browser-based, offline-capable, built for the schools the rest of edtech forgets.</p>
+    </div>
+    <div>
+      <h4>Apps</h4>
+      <ul>
+        <li><a href="https://spark.zeroaitech.tech">ZeroSpark</a></li>
+        <li><a href="https://blocky.zeroaitech.tech">ZaiBlock</a></li>
+        <li><a href="https://app.zeroaitech.tech">ZaiSim</a></li>
+        <li><a href="https://zaipy.zeroaitech.tech">ZaiPy</a></li>
+        <li><a href="https://lab.zeroaitech.tech">Lab Kiosk</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="https://zeroaitech.tech">Main website</a></li>
+        <li><a href="mailto:lottiemukuka@zeroaitech.tech">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Press</h4>
+      <ul>
+        <li><a href="https://disruptafrica.com/2026/04/28/how-zambias-zeroai-technologies-is-helping-schools-teach-ai-robotics/" target="_blank" rel="noopener">Disrupt Africa</a></li>
+        <li><a href="https://www.wearetech.africa/en/fils-uk/solutions/zambian-startup-zeroai-expands-stem-education-in-low-resource-schools" target="_blank" rel="noopener">We Are Tech</a></li>
+        <li><a href="https://www.techwithafrica.com/2026/05/06/zambias-zeroai-brings-ai-and-robotics-lessons-to-schools-without-internet-or-power/" target="_blank" rel="noopener">Tech With Africa</a></li>
+        <li><a href="https://southernafricantimes.com/how-zambias-zeroai-expands-access-to-ai-education-in-schools/" target="_blank" rel="noopener">Southern African Times</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>© 2026 ZeroAI Technologies Inc. · Zambian-founded (PACRA) · India operations (MSME)</span>
+    <span>Designed in Punjab. Deployed worldwide.</span>
+  </div>
+</footer>
+
 </body>
 </html>
