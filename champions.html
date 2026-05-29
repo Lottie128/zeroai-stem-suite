@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Champions — ZeroAI STEM Suite</title>
+<meta name="description" content="Celebrating student winners across the ZeroAI STEM Suite — daily challenges, classroom competitions, and circuit-building champions.">
+<meta property="og:site_name" content="ZeroAI Technologies">
+<meta property="og:title" content="ZeroAI Champions — student winners across the STEM Suite">
+<meta property="og:description" content="Real students winning real competitions inside ZaiSim, ZaiBlock, ZaiPy, ZeroSpark, and the Lab Kiosk.">
+<meta property="og:url" content="https://stem.zeroaitech.tech/champions">
+<meta name="theme-color" content="#0a0c10">
+<style>
+:root {
+  --bg: #0a0c10;
+  --bg-card: #11141a;
+  --bg-elev: #161b22;
+  --border: #21262d;
+  --border-strong: #30363d;
+  --text: #e6edf3;
+  --muted: #8b949e;
+  --accent: #58a6ff;
+  --accent-dim: rgba(88,166,255,0.12);
+  --gold: #d29922;
+  --purple: #a78bfa;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+  line-height: 1.6;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(167,139,250,0.10), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 30%, rgba(88,166,255,0.06), transparent 70%);
+  background-attachment: fixed;
+}
+a { color: inherit; }
+.wrap { max-width: 1100px; margin: 0 auto; padding: 32px 24px 96px; }
+header.bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 36px; }
+.brand { font-weight: 800; font-size: 14px; letter-spacing: 0.02em; color: var(--text); text-decoration: none; }
+.back { color: var(--muted); font-size: 13px; text-decoration: none; }
+.back:hover { color: var(--text); }
+
+.hero { text-align: center; margin-bottom: 40px; }
+.hero h1 { font-size: clamp(34px, 5vw, 56px); margin: 0 0 12px; letter-spacing: -0.02em; font-weight: 900;
+  background: linear-gradient(135deg, var(--gold), var(--purple), var(--accent)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero p { color: var(--muted); font-size: 16px; max-width: 640px; margin: 0 auto; }
+
+.section-title { font-size: 12px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 0.15em; margin: 36px 0 14px; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.card {
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px;
+  padding: 18px; display: flex; flex-direction: column; gap: 10px; position: relative; overflow: hidden;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+.card:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+.card.featured { border-color: rgba(210,153,34,0.4); background: linear-gradient(180deg, rgba(210,153,34,0.06), var(--bg-card)); }
+.medal { font-size: 28px; }
+.name { font-size: 18px; font-weight: 800; margin: 0; }
+.school { color: var(--muted); font-size: 12px; margin: 0; }
+.title { font-size: 14px; color: var(--accent); font-weight: 700; margin: 6px 0 0; }
+.blurb { color: var(--muted); font-size: 13px; margin: 0; }
+.date { color: var(--muted); font-size: 11px; }
+.share {
+  background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(88,166,255,0.3);
+  border-radius: 8px; padding: 7px 12px; font-size: 12px; font-weight: 700; cursor: pointer; align-self: flex-start;
+  font-family: inherit;
+}
+.share:hover { background: rgba(88,166,255,0.2); }
+
+.empty { text-align: center; padding: 60px 24px; color: var(--muted); border: 1px dashed var(--border-strong); border-radius: 18px; }
+.empty .e { font-size: 38px; margin-bottom: 10px; }
+.error { color: #f87171; background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.3); padding: 12px 16px; border-radius: 12px; font-size: 13px; }
+.loading { color: var(--muted); text-align: center; padding: 40px; font-size: 13px; }
+
+footer.foot { text-align: center; color: var(--muted); font-size: 12px; margin-top: 80px; padding-top: 30px; border-top: 1px solid var(--border); }
+footer.foot a { color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="bar">
+    <a class="brand" href="/">🏆 ZeroAI Champions</a>
+    <a class="back" href="/">← back to suite</a>
+  </header>
+
+  <section class="hero">
+    <h1>Champions of the Suite</h1>
+    <p>Real students winning real competitions across ZaiSim, ZaiBlock, ZaiPy, ZeroSpark, and the Lab Kiosk. Tap share to celebrate them.</p>
+  </section>
+
+  <div class="section-title">⭐ Featured</div>
+  <div id="featured" class="grid"></div>
+
+  <div class="section-title">Recent winners</div>
+  <div id="recent" class="grid"></div>
+
+  <footer class="foot">
+    Powered by the <a href="/">ZeroAI STEM Suite</a> · <a href="https://zeroaitech.tech">zeroaitech.tech</a>
+  </footer>
+</div>
+
+<script>
+// ── Fill these in once (the anon key is public — safe to embed). ──────────
+const SUPABASE_URL      = 'YOUR_SUPABASE_URL'      // e.g. https://abcdef.supabase.co
+const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY' // the anon (public) key
+// ─────────────────────────────────────────────────────────────────────────
+
+const featuredEl = document.getElementById('featured')
+const recentEl   = document.getElementById('recent')
+
+function escape(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' })[c]) }
+
+function shareText(h) {
+  const who = h.student_name + (h.school_name ? ` from ${h.school_name}` : '')
+  return `🏆 ${who} won "${h.title}" on the ZeroAI STEM Suite! Check out the champions wall:`
+}
+
+async function doShare(h) {
+  const text = shareText(h)
+  const url = 'https://stem.zeroaitech.tech/champions'
+  if (navigator.share) {
+    try { await navigator.share({ title: 'ZeroAI Champion', text, url }); return } catch (e) { /* user cancelled — fall through */ }
+  }
+  // Fallback: open X intent in a new tab
+  window.open(`https://x.com/intent/tweet?text=${encodeURIComponent(text + ' ' + url)}`, '_blank', 'noopener')
+}
+
+function medalFor(idx, featured) {
+  if (featured) return '🌟'
+  return ['🥇','🥈','🥉'][idx] ?? '🏆'
+}
+
+function card(h, idx, featured) {
+  const el = document.createElement('div')
+  el.className = 'card' + (featured ? ' featured' : '')
+  el.innerHTML = `
+    <div class="medal">${medalFor(idx, featured)}</div>
+    <h2 class="name">${escape(h.student_name)}</h2>
+    ${h.school_name ? `<p class="school">${escape(h.school_name)}</p>` : ''}
+    <p class="title">${escape(h.title)}</p>
+    ${h.blurb ? `<p class="blurb">${escape(h.blurb)}</p>` : ''}
+    <span class="date">${new Date(h.created_at).toLocaleDateString()}</span>
+  `
+  const btn = document.createElement('button')
+  btn.className = 'share'
+  btn.textContent = '↗ Share'
+  btn.addEventListener('click', () => doShare(h))
+  el.appendChild(btn)
+  return el
+}
+
+async function load() {
+  if (!SUPABASE_URL.startsWith('https://') || SUPABASE_ANON_KEY.startsWith('YOUR_')) {
+    featuredEl.innerHTML = '<div class="error">⚠ This page is unconfigured. Edit <code>champions.html</code> and set SUPABASE_URL + SUPABASE_ANON_KEY at the top.</div>'
+    recentEl.innerHTML = ''
+    return
+  }
+  featuredEl.innerHTML = '<div class="loading">Loading champions…</div>'
+  recentEl.innerHTML = ''
+  try {
+    const headers = { apikey: SUPABASE_ANON_KEY, Authorization: 'Bearer ' + SUPABASE_ANON_KEY }
+    const [fr, rr] = await Promise.all([
+      fetch(`${SUPABASE_URL}/rest/v1/community_highlights?select=*&featured=eq.true&order=created_at.desc&limit=6`, { headers }),
+      fetch(`${SUPABASE_URL}/rest/v1/community_highlights?select=*&featured=eq.false&order=created_at.desc&limit=24`, { headers }),
+    ])
+    const featured = fr.ok ? await fr.json() : []
+    const recent   = rr.ok ? await rr.json() : []
+
+    featuredEl.innerHTML = ''
+    if (featured.length === 0) {
+      featuredEl.innerHTML = '<div class="empty"><div class="e">⭐</div>No featured champion yet — pin one from the admin console.</div>'
+    } else {
+      featured.forEach((h, i) => featuredEl.appendChild(card(h, i, true)))
+    }
+
+    if (recent.length === 0) {
+      recentEl.innerHTML = '<div class="empty"><div class="e">🏆</div>No competition winners yet. Once you run one in the admin console and click Award winners, champions show up here.</div>'
+    } else {
+      recent.forEach((h, i) => recentEl.appendChild(card(h, i, false)))
+    }
+  } catch (e) {
+    featuredEl.innerHTML = '<div class="error">Could not load champions. Check your Supabase URL + anon key.</div>'
+    recentEl.innerHTML = ''
+  }
+}
+load()
+</script>
+</body>
+</html>
