@@ -986,34 +986,36 @@ footer { padding: 56px 24px 40px; border-top: 1px solid var(--line); }
   <div class="wrap">
     <div class="section-head reveal">
       <div class="eyebrow">Pricing</div>
-      <h2>Start free. Pay <span class="serif">per student.</span></h2>
-      <p>We come to your school, run a free workshop with your students and teachers, and you only commit when you've seen it work in your own lab.</p>
+      <h2>For your school. Or <span class="serif">just for your child.</span></h2>
+      <p>Schools license per student and set their own parent-facing fee. Parents can also enrol one child directly — same five applications, same IBM certification.</p>
     </div>
 
     <div class="pricing-grid">
 
       <div class="price-card reveal">
-        <div class="price-tier">Step one</div>
-        <h3>Free Workshop</h3>
-        <div class="subtitle">2-hour live demo at your school.</div>
-        <div class="price-num"><strong>₹0</strong><span>· no commitment</span></div>
-        <p class="price-note">For schools in Ludhiana, Cebu, Davao and Lusaka — founder personally delivers it.</p>
+        <div class="price-tier">Parents &amp; students</div>
+        <h3>Individual Student</h3>
+        <div class="subtitle">One child, full access — buy online and start today.</div>
+        <div class="price-num"><strong id="indivPrice">₹1,999</strong><span>/ student / year</span></div>
+        <p class="price-note" id="indivNote">India pricing · shown in your local currency automatically.</p>
         <ul class="price-features">
-          <li>2-hour live session with your students</li>
-          <li>All five applications demonstrated</li>
-          <li>Q&A with your teachers</li>
-          <li>Delivered by the founder</li>
+          <li>Premium access to <b>all five applications</b></li>
+          <li><b>IBM Partner Plus certification</b> on completing the year</li>
+          <li>Self-paced lessons, Grades 1–12</li>
+          <li>Works offline after first load</li>
+          <li>Up to 5 seats per purchase (siblings welcome)</li>
         </ul>
-        <a class="btn btn-ghost" href="#contact">Book a workshop</a>
+        <a class="btn btn-ghost" href="#contact" id="enrollIndivBtn">Enrol your child</a>
+        <p style="margin-top: 12px; font-size: 12px; color: var(--dim); text-align: center;">Tip: if their school joins, this costs less — ask us.</p>
       </div>
 
       <div class="price-card featured reveal reveal-d1">
-        <div class="badge">Most popular · India</div>
+        <div class="badge">For schools · best value</div>
         <div class="price-tier">Per-student programme</div>
-        <h3>Student Licence</h3>
+        <h3>School Licence</h3>
         <div class="subtitle">Runs on your existing computer lab. Live before the next academic session.</div>
         <div class="price-num"><strong id="planPrice">₹999</strong><span id="planInterval">/ student / year</span></div>
-        <p class="price-note" id="planNote">India pricing · prices shown in your local currency at checkout.</p>
+        <p class="price-note" id="planNote">India pricing · from 10 students · your local currency at checkout.</p>
         <ul class="price-features">
           <li>Premium access to <b>all five applications</b></li>
           <li><b>IBM Partner Plus certification</b> on completing the year</li>
@@ -1022,6 +1024,7 @@ footer { padding: 56px 24px 40px; border-top: 1px solid var(--line); }
           <li>No infrastructure build, no revenue share</li>
         </ul>
         <a class="btn btn-primary" href="#contact" id="enrollBtn">Start the programme</a>
+        <p style="margin-top: 12px; font-size: 12.5px; text-align: center;"><a href="#contact" style="color: var(--blue); font-weight: 600;">Not sure yet? Book the free 2-hour workshop first →</a></p>
       </div>
 
       <div class="price-card reveal reveal-d2">
@@ -1044,6 +1047,7 @@ footer { padding: 56px 24px 40px; border-top: 1px solid var(--line); }
 
     <div class="price-foot reveal">
       <span>🎓 <b>The school keeps the margin.</b> Charge parents what fits your community — ZeroAI only ever takes ₹999 per student.</span>
+      <span>👨‍👩‍👧 <b>Going direct?</b> Individual seats cost more by design — your school is always the better deal.</span>
       <span>🌍 Operating across <b>India, the Philippines, the Gulf, Switzerland and the UK.</b></span>
     </div>
   </div>
@@ -1136,7 +1140,7 @@ footer { padding: 56px 24px 40px; border-top: 1px solid var(--line); }
         <button class="faq-q" aria-expanded="false">How does pricing work for our school?
           <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
-        <div class="faq-a"><div class="faq-a-inner">In India: <b>₹999 per student per academic year</b>, covering premium access to all five applications and the certification. Your school sets the parent-facing fee and <b>keeps 100% of the markup</b> — we take no revenue share. Other regions are priced per student too; contact us for a local quote. Full smart-classroom infrastructure builds are quoted per deployment.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">For schools in India: <b>₹999 per student per academic year</b>, covering premium access to all five applications and the certification. Your school sets the parent-facing fee and <b>keeps 100% of the markup</b> — we take no revenue share. Parents can also enrol a child directly at <b>₹1,999/year</b> (individual seats are priced above the school rate on purpose, so the school channel is always the better deal). Other regions are priced per student in local currency — shown automatically on this page. Full smart-classroom infrastructure builds are quoted per deployment.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">How do we get started?
@@ -1213,13 +1217,13 @@ footer { padding: 56px 24px 40px; border-top: 1px solid var(--line); }
     <div class="co-head">
       <div>
         <h3 id="coTitle">Enrol your school</h3>
-        <p class="co-sub">Student Licence · all five applications · IBM Partner Plus certification</p>
+        <p class="co-sub" id="coSub">School Licence · all five applications · IBM Partner Plus certification</p>
       </div>
       <button class="co-x" id="coClose" aria-label="Close">×</button>
     </div>
     <div class="co-error" id="coError"></div>
     <div class="co-field">
-      <label for="coSchool">School name</label>
+      <label for="coSchool" id="coNameLabel">School name</label>
       <input id="coSchool" type="text" placeholder="e.g. St. Mary's Academy" maxlength="200">
     </div>
     <div class="co-field">
@@ -1229,20 +1233,24 @@ footer { padding: 56px 24px 40px; border-top: 1px solid var(--line); }
     <div class="co-field">
       <label for="coRegion">Region</label>
       <select id="coRegion">
-        <option value="india">India — ₹999 / student / year</option>
-        <option value="philippines">Philippines — ₱599 / student / year</option>
-        <option value="uae">UAE — AED 99 / student / year</option>
-        <option value="uk">United Kingdom — £19 / student / year</option>
-        <option value="switzerland">Switzerland — CHF 29 / student / year</option>
-        <option value="zambia">Zambia — K199 / student / year</option>
-        <option value="global">International — $19 / student / year</option>
+        <option value="india">India</option>
+        <option value="philippines">Philippines</option>
+        <option value="uae">UAE</option>
+        <option value="uk">United Kingdom</option>
+        <option value="switzerland">Switzerland</option>
+        <option value="zambia">Zambia</option>
+        <option value="global">International</option>
       </select>
     </div>
     <div class="co-field">
-      <label for="coStudents">Number of students</label>
-      <input id="coStudents" type="number" min="1" max="5000" value="100">
+      <label for="coStudents" id="coSeatsLabel">Number of students</label>
+      <input id="coStudents" type="number" min="10" max="5000" value="100">
     </div>
-    <div class="co-total">
+    <div class="co-total" style="border-bottom: none; padding-bottom: 6px;">
+      <span class="lbl">Per student · 1 year</span>
+      <span class="lbl" id="coUnit" style="color: var(--text); font-weight: 700;">—</span>
+    </div>
+    <div class="co-total" style="border-top: none; padding-top: 6px;">
       <span class="lbl">Total · 1 year</span>
       <span class="amt" id="coTotal">—</span>
     </div>
@@ -1422,7 +1430,9 @@ footer { padding: 56px 24px 40px; border-top: 1px solid var(--line); }
      yet, the Start button keeps its #contact fallback. */
   var API = 'https://admin.zeroaitech.tech/api/checkout';
   var SYMBOL = { INR: '₹', PHP: '₱', AED: 'AED ', GBP: '£', CHF: 'CHF ', ZMW: 'K', USD: '$' };
-  var cfg = null, plansByRegion = {};
+  var BOUNDS = { school: { min: 10, max: 5000, def: 100 }, individual: { min: 1, max: 5, def: 1 } };
+  var cfg = null, audience = 'school';
+  var plansBy = { school: {}, individual: {} };
 
   function fmt(minor, currency) {
     var whole = minor / 100;
@@ -1437,23 +1447,52 @@ footer { padding: 56px 24px 40px; border-top: 1px solid var(--line); }
 
   var overlay   = document.getElementById('coOverlay');
   var enrollBtn = document.getElementById('enrollBtn');
+  var enrollIndivBtn = document.getElementById('enrollIndivBtn');
   var planPrice = document.getElementById('planPrice');
   var planNote  = document.getElementById('planNote');
+  var indivPrice = document.getElementById('indivPrice');
+  var indivNote  = document.getElementById('indivNote');
   var regionSel = document.getElementById('coRegion');
   var studentsI = document.getElementById('coStudents');
   var totalEl   = document.getElementById('coTotal');
+  var unitEl    = document.getElementById('coUnit');
   var errEl     = document.getElementById('coError');
   var payBtn    = document.getElementById('coPay');
 
-  function currentPlan() { return plansByRegion[regionSel.value] || plansByRegion['global'] || null; }
+  function currentPlan() {
+    var pool = plansBy[audience] || {};
+    return pool[regionSel.value] || pool['global'] || null;
+  }
   function refreshTotal() {
     var plan = currentPlan();
-    var n = Math.max(1, Math.min(5000, parseInt(studentsI.value, 10) || 0));
+    var b = BOUNDS[audience];
+    var n = Math.max(b.min, Math.min(b.max, parseInt(studentsI.value, 10) || 0));
+    unitEl.textContent  = plan ? fmt(plan.amount, plan.currency) : '—';
     totalEl.textContent = plan ? fmt(plan.amount * n, plan.currency) : '—';
   }
   function showErr(msg) { errEl.textContent = msg; errEl.classList.add('show'); }
   function clearErr() { errEl.classList.remove('show'); }
-  function openModal() { overlay.classList.add('open'); clearErr(); refreshTotal(); document.getElementById('coSchool').focus(); }
+  function applyAudience(a) {
+    audience = a;
+    var b = BOUNDS[a];
+    studentsI.min = b.min; studentsI.max = b.max; studentsI.value = b.def;
+    if (a === 'individual') {
+      document.getElementById('coTitle').textContent = 'Enrol your child';
+      document.getElementById('coSub').textContent = 'Individual Student · all five applications · IBM Partner Plus certification';
+      document.getElementById('coNameLabel').textContent = "Parent / student name";
+      document.getElementById('coSchool').placeholder = 'e.g. Anita Sharma';
+      document.getElementById('coEmail').placeholder = 'parent@email.com';
+      document.getElementById('coSeatsLabel').textContent = 'Seats (1–5 children)';
+    } else {
+      document.getElementById('coTitle').textContent = 'Enrol your school';
+      document.getElementById('coSub').textContent = 'School Licence · all five applications · IBM Partner Plus certification';
+      document.getElementById('coNameLabel').textContent = 'School name';
+      document.getElementById('coSchool').placeholder = "e.g. St. Mary's Academy";
+      document.getElementById('coEmail').placeholder = 'principal@school.edu';
+      document.getElementById('coSeatsLabel').textContent = 'Number of students (min 10)';
+    }
+  }
+  function openModal(a) { applyAudience(a); overlay.classList.add('open'); clearErr(); refreshTotal(); document.getElementById('coSchool').focus(); }
   function closeModal() { overlay.classList.remove('open'); }
 
   document.getElementById('coClose').addEventListener('click', closeModal);
@@ -1462,20 +1501,29 @@ footer { padding: 56px 24px 40px; border-top: 1px solid var(--line); }
   regionSel.addEventListener('change', refreshTotal);
   studentsI.addEventListener('input', refreshTotal);
 
-  /* hydrate config: local currency on the pricing card + live checkout */
+  /* hydrate config: local currency on both pricing cards + live checkout */
   post({ action: 'config' }).then(function (r) {
     if (!r.ok || !r.body) return;
     cfg = r.body;
-    (cfg.all_plans || []).forEach(function (p) { plansByRegion[p.region] = p; });
+    (cfg.all_plans || []).forEach(function (p) {
+      var a = p.audience === 'individual' ? 'individual' : 'school';
+      plansBy[a][p.region] = p;
+    });
+    var names = { india: 'India', philippines: 'Philippines', uae: 'UAE', uk: 'UK', switzerland: 'Switzerland', zambia: 'Zambia', global: 'International' };
     if (cfg.plan) {
       planPrice.textContent = fmt(cfg.plan.amount, cfg.plan.currency);
-      var names = { india: 'India', philippines: 'Philippines', uae: 'UAE', uk: 'UK', switzerland: 'Switzerland', zambia: 'Zambia', global: 'International' };
-      planNote.textContent = (names[cfg.plan.region] || 'Local') + ' pricing · detected automatically. Other regions at checkout.';
-      if (plansByRegion[cfg.plan.region]) regionSel.value = cfg.plan.region;
+      planNote.textContent = (names[cfg.plan.region] || 'Local') + ' pricing · from 10 students · detected automatically.';
+      if (plansBy.school[cfg.plan.region]) regionSel.value = cfg.plan.region;
+    }
+    if (cfg.individual_plan) {
+      indivPrice.textContent = fmt(cfg.individual_plan.amount, cfg.individual_plan.currency);
+      indivNote.textContent = (names[cfg.individual_plan.region] || 'Local') + ' pricing · detected automatically.';
     }
     if (cfg.checkout_live) {
       enrollBtn.textContent = 'Enrol now — pay online →';
-      enrollBtn.addEventListener('click', function (e) { e.preventDefault(); openModal(); });
+      enrollBtn.addEventListener('click', function (e) { e.preventDefault(); openModal('school'); });
+      enrollIndivBtn.textContent = 'Enrol your child — pay online →';
+      enrollIndivBtn.addEventListener('click', function (e) { e.preventDefault(); openModal('individual'); });
     }
   }).catch(function () { /* static fallback stays */ });
 
@@ -1496,9 +1544,12 @@ footer { padding: 56px 24px 40px; border-top: 1px solid var(--line); }
     var email  = document.getElementById('coEmail').value.trim();
     var n      = parseInt(studentsI.value, 10) || 0;
     var plan   = currentPlan();
-    if (!school) return showErr('Please enter your school name.');
+    var b      = BOUNDS[audience];
+    if (!school) return showErr(audience === 'individual' ? 'Please enter your name.' : 'Please enter your school name.');
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return showErr('Please enter a valid email.');
-    if (n < 1 || n > 5000) return showErr('Students must be between 1 and 5000.');
+    if (n < b.min || n > b.max) return showErr(audience === 'individual'
+      ? 'Individual licences cover 1–5 seats. For more, use the School Licence.'
+      : 'School licences start at 10 students (up to 5000). For fewer seats, use the Individual Student option.');
     if (!plan) return showErr('No plan available for this region yet — please use the contact options.');
 
     payBtn.disabled = true; payBtn.textContent = 'Preparing secure checkout…';
