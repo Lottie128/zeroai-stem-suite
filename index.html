@@ -508,6 +508,59 @@ footer { padding: 56px 24px 40px; border-top: 1px solid var(--line); }
 .foot > div > p { color: var(--muted); font-size: 14px; max-width: 320px; margin-top: 14px; line-height: 1.65; }
 .foot-bottom { margin-top: 44px; padding-top: 26px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; color: var(--dim); font-size: 12.5px; }
 
+/* ─── Checkout ─────────────────────────────────────── */
+.co-overlay {
+  position: fixed; inset: 0; z-index: 200; display: none;
+  background: rgba(2,3,6,0.75); backdrop-filter: blur(8px);
+  align-items: center; justify-content: center; padding: 20px;
+}
+.co-overlay.open { display: flex; }
+.co-card {
+  width: 100%; max-width: 460px; border-radius: var(--r-lg); padding: 32px;
+  background: linear-gradient(var(--card-solid), var(--card-solid)) padding-box,
+              linear-gradient(155deg, rgba(92,158,255,0.5), rgba(255,255,255,0.05) 45%, rgba(143,123,255,0.4)) border-box;
+  border: 1px solid transparent;
+  box-shadow: 0 40px 100px -20px rgba(0,0,0,0.85);
+  max-height: 90vh; overflow-y: auto;
+}
+.co-card h3 { font-size: 21px; margin-bottom: 4px; }
+.co-card .co-sub { color: var(--muted); font-size: 13.5px; margin-bottom: 22px; }
+.co-field { margin-bottom: 14px; }
+.co-field label { display: block; font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); margin-bottom: 6px; }
+.co-field input, .co-field select {
+  width: 100%; padding: 11px 14px; border-radius: 10px; font-size: 14.5px;
+  background: rgba(255,255,255,0.04); border: 1px solid var(--line-strong);
+  color: var(--text); font-family: inherit; outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.co-field input:focus, .co-field select:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(92,158,255,0.15); }
+.co-field select option { background: var(--elev); }
+.co-total {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 16px 0; margin: 6px 0 18px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+}
+.co-total .lbl { color: var(--muted); font-size: 13.5px; font-weight: 600; }
+.co-total .amt { font-size: 26px; font-weight: 800; letter-spacing: -0.02em;
+  background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.co-error { display: none; color: #ff8a85; background: rgba(255,107,102,0.08); border: 1px solid rgba(255,107,102,0.3); padding: 10px 14px; border-radius: 10px; font-size: 13px; margin-bottom: 14px; }
+.co-error.show { display: block; }
+.co-actions { display: flex; gap: 10px; }
+.co-actions .btn { flex: 1; }
+.co-close { position: absolute; }
+.co-head { display: flex; justify-content: space-between; align-items: flex-start; }
+.co-x { color: var(--dim); font-size: 22px; line-height: 1; padding: 2px 6px; border-radius: 6px; }
+.co-x:hover { color: var(--text); background: rgba(255,255,255,0.06); }
+.co-secure { display: flex; align-items: center; justify-content: center; gap: 7px; margin-top: 16px; color: var(--dim); font-size: 11.5px; font-weight: 550; }
+.pay-banner {
+  position: fixed; top: 70px; left: 50%; transform: translateX(-50%); z-index: 150;
+  display: none; align-items: center; gap: 10px; padding: 13px 22px; border-radius: 12px;
+  font-size: 14px; font-weight: 650; max-width: calc(100vw - 40px);
+  box-shadow: 0 18px 50px -12px rgba(0,0,0,0.7);
+}
+.pay-banner.show { display: flex; }
+.pay-banner.ok { background: rgba(70,209,122,0.12); border: 1px solid rgba(70,209,122,0.4); color: var(--green); }
+.pay-banner.bad { background: rgba(232,184,91,0.1); border: 1px solid rgba(232,184,91,0.4); color: var(--gold); }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
   html { scroll-behavior: auto; }
@@ -959,8 +1012,8 @@ footer { padding: 56px 24px 40px; border-top: 1px solid var(--line); }
         <div class="price-tier">Per-student programme</div>
         <h3>Student Licence</h3>
         <div class="subtitle">Runs on your existing computer lab. Live before the next academic session.</div>
-        <div class="price-num"><strong>₹999</strong><span>/ student / year</span></div>
-        <p class="price-note">India pricing. Per-student pricing for other regions — talk to us.</p>
+        <div class="price-num"><strong id="planPrice">₹999</strong><span id="planInterval">/ student / year</span></div>
+        <p class="price-note" id="planNote">India pricing · prices shown in your local currency at checkout.</p>
         <ul class="price-features">
           <li>Premium access to <b>all five applications</b></li>
           <li><b>IBM Partner Plus certification</b> on completing the year</li>
@@ -968,7 +1021,7 @@ footer { padding: 56px 24px 40px; border-top: 1px solid var(--line); }
           <li>Teacher onboarding + classroom controls</li>
           <li>No infrastructure build, no revenue share</li>
         </ul>
-        <a class="btn btn-primary" href="#contact">Start the programme</a>
+        <a class="btn btn-primary" href="#contact" id="enrollBtn">Start the programme</a>
       </div>
 
       <div class="price-card reveal reveal-d2">
@@ -1154,6 +1207,58 @@ footer { padding: 56px 24px 40px; border-top: 1px solid var(--line); }
   </div>
 </footer>
 
+<!-- ═════ CHECKOUT MODAL ═════ -->
+<div class="co-overlay" id="coOverlay" role="dialog" aria-modal="true" aria-labelledby="coTitle">
+  <div class="co-card">
+    <div class="co-head">
+      <div>
+        <h3 id="coTitle">Enrol your school</h3>
+        <p class="co-sub">Student Licence · all five applications · IBM Partner Plus certification</p>
+      </div>
+      <button class="co-x" id="coClose" aria-label="Close">×</button>
+    </div>
+    <div class="co-error" id="coError"></div>
+    <div class="co-field">
+      <label for="coSchool">School name</label>
+      <input id="coSchool" type="text" placeholder="e.g. St. Mary's Academy" maxlength="200">
+    </div>
+    <div class="co-field">
+      <label for="coEmail">Contact email</label>
+      <input id="coEmail" type="email" placeholder="principal@school.edu">
+    </div>
+    <div class="co-field">
+      <label for="coRegion">Region</label>
+      <select id="coRegion">
+        <option value="india">India — ₹999 / student / year</option>
+        <option value="philippines">Philippines — ₱599 / student / year</option>
+        <option value="uae">UAE — AED 99 / student / year</option>
+        <option value="uk">United Kingdom — £19 / student / year</option>
+        <option value="switzerland">Switzerland — CHF 29 / student / year</option>
+        <option value="zambia">Zambia — K199 / student / year</option>
+        <option value="global">International — $19 / student / year</option>
+      </select>
+    </div>
+    <div class="co-field">
+      <label for="coStudents">Number of students</label>
+      <input id="coStudents" type="number" min="1" max="5000" value="100">
+    </div>
+    <div class="co-total">
+      <span class="lbl">Total · 1 year</span>
+      <span class="amt" id="coTotal">—</span>
+    </div>
+    <div class="co-actions">
+      <button class="btn btn-primary" id="coPay">Proceed to payment →</button>
+    </div>
+    <div class="co-secure">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      Secured by Razorpay &amp; Stripe · ZeroAI never sees your card details
+    </div>
+  </div>
+</div>
+
+<!-- payment result banner -->
+<div class="pay-banner" id="payBanner"></div>
+
 <script>
 (function () {
   'use strict';
@@ -1310,6 +1415,159 @@ footer { padding: 56px 24px 40px; border-top: 1px solid var(--line); }
   });
 
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* ════ Payments: geo-currency + checkout ════
+     Driven entirely by the admin console — plans and provider keys come
+     from admin.zeroaitech.tech/api/checkout. If no provider is configured
+     yet, the Start button keeps its #contact fallback. */
+  var API = 'https://admin.zeroaitech.tech/api/checkout';
+  var SYMBOL = { INR: '₹', PHP: '₱', AED: 'AED ', GBP: '£', CHF: 'CHF ', ZMW: 'K', USD: '$' };
+  var cfg = null, plansByRegion = {};
+
+  function fmt(minor, currency) {
+    var whole = minor / 100;
+    var s = (SYMBOL[currency] != null ? SYMBOL[currency] : currency + ' ');
+    return s + (whole % 1 === 0 ? whole.toLocaleString('en-US') : whole.toLocaleString('en-US', { minimumFractionDigits: 2 }));
+  }
+  function post(body) {
+    return fetch(API, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body),
+    }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok, body: j }; }); });
+  }
+
+  var overlay   = document.getElementById('coOverlay');
+  var enrollBtn = document.getElementById('enrollBtn');
+  var planPrice = document.getElementById('planPrice');
+  var planNote  = document.getElementById('planNote');
+  var regionSel = document.getElementById('coRegion');
+  var studentsI = document.getElementById('coStudents');
+  var totalEl   = document.getElementById('coTotal');
+  var errEl     = document.getElementById('coError');
+  var payBtn    = document.getElementById('coPay');
+
+  function currentPlan() { return plansByRegion[regionSel.value] || plansByRegion['global'] || null; }
+  function refreshTotal() {
+    var plan = currentPlan();
+    var n = Math.max(1, Math.min(5000, parseInt(studentsI.value, 10) || 0));
+    totalEl.textContent = plan ? fmt(plan.amount * n, plan.currency) : '—';
+  }
+  function showErr(msg) { errEl.textContent = msg; errEl.classList.add('show'); }
+  function clearErr() { errEl.classList.remove('show'); }
+  function openModal() { overlay.classList.add('open'); clearErr(); refreshTotal(); document.getElementById('coSchool').focus(); }
+  function closeModal() { overlay.classList.remove('open'); }
+
+  document.getElementById('coClose').addEventListener('click', closeModal);
+  overlay.addEventListener('click', function (e) { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+  regionSel.addEventListener('change', refreshTotal);
+  studentsI.addEventListener('input', refreshTotal);
+
+  /* hydrate config: local currency on the pricing card + live checkout */
+  post({ action: 'config' }).then(function (r) {
+    if (!r.ok || !r.body) return;
+    cfg = r.body;
+    (cfg.all_plans || []).forEach(function (p) { plansByRegion[p.region] = p; });
+    if (cfg.plan) {
+      planPrice.textContent = fmt(cfg.plan.amount, cfg.plan.currency);
+      var names = { india: 'India', philippines: 'Philippines', uae: 'UAE', uk: 'UK', switzerland: 'Switzerland', zambia: 'Zambia', global: 'International' };
+      planNote.textContent = (names[cfg.plan.region] || 'Local') + ' pricing · detected automatically. Other regions at checkout.';
+      if (plansByRegion[cfg.plan.region]) regionSel.value = cfg.plan.region;
+    }
+    if (cfg.checkout_live) {
+      enrollBtn.textContent = 'Enrol now — pay online →';
+      enrollBtn.addEventListener('click', function (e) { e.preventDefault(); openModal(); });
+    }
+  }).catch(function () { /* static fallback stays */ });
+
+  /* pay */
+  function loadRazorpay() {
+    return new Promise(function (resolve, reject) {
+      if (window.Razorpay) return resolve();
+      var s = document.createElement('script');
+      s.src = 'https://checkout.razorpay.com/v1/checkout.js';
+      s.onload = resolve; s.onerror = function () { reject(new Error('Could not load Razorpay')); };
+      document.head.appendChild(s);
+    });
+  }
+
+  payBtn.addEventListener('click', function () {
+    clearErr();
+    var school = document.getElementById('coSchool').value.trim();
+    var email  = document.getElementById('coEmail').value.trim();
+    var n      = parseInt(studentsI.value, 10) || 0;
+    var plan   = currentPlan();
+    if (!school) return showErr('Please enter your school name.');
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return showErr('Please enter a valid email.');
+    if (n < 1 || n > 5000) return showErr('Students must be between 1 and 5000.');
+    if (!plan) return showErr('No plan available for this region yet — please use the contact options.');
+
+    payBtn.disabled = true; payBtn.textContent = 'Preparing secure checkout…';
+    post({ action: 'create', plan_id: plan.id, school_name: school, email: email, students: n })
+      .then(function (r) {
+        if (!r.ok) throw new Error(r.body && r.body.error || 'Checkout failed');
+        var d = r.body;
+        if (d.provider === 'stripe') { window.location.href = d.url; return; }
+        return loadRazorpay().then(function () {
+          var rz = new window.Razorpay({
+            key: d.key_id, amount: d.amount, currency: d.currency,
+            name: d.name, description: d.description,
+            order_id: d.razorpay_order_id, prefill: d.prefill, notes: d.notes,
+            theme: { color: '#5c9eff' },
+            handler: function (resp) {
+              post({
+                action: 'verify', order_id: d.order_id,
+                razorpay_order_id: resp.razorpay_order_id,
+                razorpay_payment_id: resp.razorpay_payment_id,
+                razorpay_signature: resp.razorpay_signature,
+              }).then(function (v) {
+                closeModal();
+                banner(v.ok ? 'ok' : 'bad', v.ok
+                  ? '🎉 Payment received! Your licence is active — we\'ll email onboarding details to ' + email
+                  : 'Payment captured, verification pending — we\'ll confirm by email shortly.');
+              });
+            },
+            modal: { ondismiss: function () { payBtn.disabled = false; payBtn.textContent = 'Proceed to payment →'; } },
+          });
+          rz.open();
+          payBtn.disabled = false; payBtn.textContent = 'Proceed to payment →';
+        });
+      })
+      .catch(function (e) {
+        showErr(e.message || 'Something went wrong. Please try again or use the contact options.');
+        payBtn.disabled = false; payBtn.textContent = 'Proceed to payment →';
+      });
+  });
+
+  /* Stripe return banners */
+  function banner(kind, text) {
+    var b = document.getElementById('payBanner');
+    b.className = 'pay-banner show ' + kind;
+    b.textContent = text;
+    setTimeout(function () { b.classList.remove('show'); }, 12000);
+  }
+  var params = new URLSearchParams(window.location.search);
+  var payState = params.get('payment');
+  if (payState) {
+    history.replaceState(null, '', window.location.pathname);
+    if (payState === 'cancelled') {
+      banner('bad', 'Payment cancelled — your order was not charged. You can try again any time.');
+    } else if (payState === 'success') {
+      var oid = params.get('order');
+      banner('ok', '🎉 Payment received! Confirming your licence…');
+      if (oid) {
+        var tries = 0;
+        var poll = setInterval(function () {
+          tries++;
+          post({ action: 'status', order_id: oid }).then(function (r) {
+            if (r.ok && r.body.status === 'paid') {
+              clearInterval(poll);
+              banner('ok', '🎉 Licence confirmed for ' + r.body.school_name + ' — ' + r.body.students + ' students. Onboarding details are on their way.');
+            } else if (tries > 10) { clearInterval(poll); }
+          });
+        }, 3000);
+      }
+    }
+  }
 })();
 </script>
 
