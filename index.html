@@ -302,6 +302,15 @@ section { padding: 96px 24px; position: relative; }
 @keyframes bubbleIn { to { opacity: 1; transform: none; } }
 .chat-name { font-size: 10.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); }
 
+/* ZaiCAD panel — isometric 3D model preview */
+.cad-scene { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; }
+.cad-art { will-change: transform; }
+.demo-panel.active .cad-art { animation: cadIn 0.6s var(--ease) 0.15s both, cadBob 4s ease-in-out 0.95s infinite; }
+@keyframes cadIn { 0% { opacity: 0; transform: translateY(22px) scale(0.9); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes cadBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+.cad-label { color: var(--muted); font-size: 13.5px; font-weight: 600; }
+.cad-label b { color: #b3a4ff; font-weight: 700; }
+
 /* ─── Trust strip ──────────────────────────────────── */
 .trust { padding: 44px 24px 40px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: rgba(255,255,255,0.012); }
 .trust-label { color: var(--dim); font-size: 11.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; text-align: center; margin-bottom: 20px; }
@@ -622,7 +631,7 @@ footer { padding: 56px 24px 40px; border-top: 1px solid var(--line); }
     </div>
 
     <!-- live suite demo -->
-    <div class="demo" aria-label="Interactive preview of the five suite applications">
+    <div class="demo" aria-label="Interactive preview of the suite applications">
       <div class="demo-frame">
         <div class="demo-chrome">
           <div class="demo-dots"><i></i><i></i><i></i></div>
@@ -741,6 +750,29 @@ footer { padding: 56px 24px 40px; border-top: 1px solid var(--line); }
             </div>
           </div>
 
+          <!-- ZaiCAD -->
+          <div class="demo-panel" data-app="cad" data-url="zaicad.zeroaitech.tech" data-hint="Drag shapes → 3D model">
+            <div class="cad-scene">
+              <div class="cad-art">
+                <svg viewBox="0 0 300 200" width="280" aria-hidden="true">
+                  <!-- ground shadow -->
+                  <ellipse cx="150" cy="176" rx="96" ry="16" fill="#8f7bff" opacity="0.12"/>
+                  <!-- cylinder -->
+                  <path d="M196 92 V140 a26 11 0 0 0 52 0 V92 Z" fill="#6d28d9"/>
+                  <ellipse cx="222" cy="92" rx="26" ry="11" fill="#a78bfa"/>
+                  <ellipse cx="222" cy="92" rx="26" ry="11" fill="none" stroke="#c4b5fd" stroke-width="1.5" opacity="0.5"/>
+                  <!-- cube -->
+                  <polygon points="96,58 142,81 96,104 50,81" fill="#b3a4ff"/>
+                  <polygon points="50,81 96,104 96,160 50,137" fill="#8f7bff"/>
+                  <polygon points="142,81 96,104 96,160 142,137" fill="#6d28d9"/>
+                  <polyline points="50,81 96,104 142,81" fill="none" stroke="#d7ccff" stroke-width="1.5" opacity="0.55"/>
+                  <line x1="96" y1="104" x2="96" y2="160" stroke="#d7ccff" stroke-width="1.5" opacity="0.35"/>
+                </svg>
+              </div>
+              <div class="cad-label">Drag & combine primitives into a <b>3D model</b> — export to print.</div>
+            </div>
+          </div>
+
           <!-- Lab Kiosk -->
           <div class="demo-panel" data-app="kiosk" data-url="lab.zeroaitech.tech" data-hint="ARIA · AI lab tutor">
             <div class="kiosk-scene">
@@ -757,6 +789,7 @@ footer { padding: 56px 24px 40px; border-top: 1px solid var(--line); }
           <button class="demo-tab" role="tab" aria-selected="false" data-target="block"><span class="ic">🧩</span>ZaiBlock</button>
           <button class="demo-tab" role="tab" aria-selected="false" data-target="sim"><span class="ic">🔌</span>ZaiSim</button>
           <button class="demo-tab" role="tab" aria-selected="false" data-target="py"><span class="ic">🐍</span>ZaiPy</button>
+          <button class="demo-tab" role="tab" aria-selected="false" data-target="cad"><span class="ic">🧊</span>ZaiCAD</button>
           <button class="demo-tab" role="tab" aria-selected="false" data-target="kiosk"><span class="ic">🔬</span>Kiosk</button>
         </div>
       </div>
